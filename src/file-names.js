@@ -1,25 +1,33 @@
-const { NotImplementedError } = require('../extensions/index.js');
+function renameFiles(names) {
+	// объект для хранения количества повторений имен файлов
+	const count = {};
+	// массив для хранения переименованных имен файлов
+	const result = [];
 
-/**
- * There's a list of file, since two files cannot have equal names,
- * the one which comes later will have a suffix (k),
- * where k is the smallest integer such that the found name is not used yet.
- *
- * Return an array of names that will be given to the files.
- *
- * @param {Array} names
- * @return {Array}
- *
- * @example
- * For input ["file", "file", "image", "file(1)", "file"],
- * the output should be ["file", "file(1)", "image", "file(1)(1)", "file(2)"]
- *
- */
-function renameFiles(/* names */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+	// обходим все имена файлов в порядке их следования в массиве
+	for (const name of names) {
+		// если имя файла встречается впервые
+		if (!count[name]) {
+			// сохраняем его в объекте с количеством повторений 1
+			count[name] = 1;
+			// и добавляем в результирующий массив
+			result.push(name);
+		// если имя файла уже было использовано
+		} else {
+			// создаем новое имя файла с добавлением суффикса "(k)"
+			const newName = `${name}(${count[name]})`;
+			// увеличиваем количество повторений имени файла
+			count[name]++;
+			// сохраняем новое имя файла в объекте с количеством повторений 1
+			count[newName] = 1;
+			// добавляем новое имя файла в результирующий массив
+			result.push(newName);
+		}
+	}
+	// возвращаем массив переименованных имен файлов
+	return result;
 }
-
+ 
 module.exports = {
   renameFiles
 };

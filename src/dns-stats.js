@@ -1,30 +1,22 @@
-const { NotImplementedError } = require('../extensions/index.js');
-
-/**
- * Given an array of domains, return the object with the appearances of the DNS.
- *
- * @param {Array} domains
- * @return {Object}
- *
- * @example
- * domains = [
- *  'code.yandex.ru',
- *  'music.yandex.ru',
- *  'yandex.ru'
- * ]
- *
- * The result should be the following:
- * {
- *   '.ru': 3,
- *   '.ru.yandex': 3,
- *   '.ru.yandex.code': 1,
- *   '.ru.yandex.music': 1,
- * }
- *
- */
-function getDNSStats(/* domains */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function getDNSStats(domains) {
+	// Создаем пустой объект, в котором будем хранить количество встреч каждого домена.
+	const result = domains.reduce((acc, domain) => {
+		// Разбиваем каждый домен на отдельные части, разделенные точками, и переворачиваем их порядок.
+		const domainParts = domain.split('.').reverse();
+		// Создаем пустую строку, в которой будем хранить все поддомены.
+		let subdomain = '';
+		// Для каждой части домена, начиная с последней и заканчивая первой:
+		domainParts.forEach((part) => {
+			// Добавляем очередную часть к поддомену.
+			subdomain += `.${part}`;
+			// Добавляем поддомен к объекту, увеличивая его количество на 1.
+			acc[subdomain] = (acc[subdomain] || 0) + 1;
+		});
+		// Возвращаем аккумулятор на каждой итерации.
+		return acc;
+	}, {});
+	// Возвращаем объект со статистикой доменов.
+	return result;
 }
 
 module.exports = {

@@ -1,21 +1,28 @@
-const { NotImplementedError } = require('../extensions/index.js');
+function getCommonCharacterCount(s1, s2) {
+	// объект для хранения частоты повторений букв в строке s1
+	const freq = {};
+	// переменная для хранения количества общих букв
+	let count = 0;
 
-/**
- * Given two strings, find the number of common characters between them.
- *
- * @param {String} s1
- * @param {String} s2
- * @return {Number}
- *
- * @example
- * For s1 = "aabcc" and s2 = "adcaa", the output should be 3
- * Strings have 3 common characters - 2 "a"s and 1 "c".
- */
-function getCommonCharacterCount(/* s1, s2 */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+	// Заполняем объект freq для строки s1
+	for (let i = 0; i < s1.length; i++) {
+		const char = s1[i];
+		freq[char] = freq[char] ? freq[char] + 1 : 1;
+	}
+
+	// Перебираем все буквы в строке s2
+	for (let i = 0; i < s2.length; i++) {
+		const char = s2[i];
+		// Если буква уже была встречена в строке s1, уменьшаем её количество в freq и увеличиваем count
+		if (freq[char]) {
+			freq[char]--;
+			count++;
+		}
+	}
+
+	return count;
 }
-
+ 
 module.exports = {
   getCommonCharacterCount
 };

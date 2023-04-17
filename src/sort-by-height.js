@@ -1,19 +1,11 @@
-const { NotImplementedError } = require('../extensions/index.js');
-
-/**
- * Given an array with heights, sort them except if the value is -1.
- *
- * @param {Array} arr
- * @return {Array}
- *
- * @example
- * arr = [-1, 150, 190, 170, -1, -1, 160, 180]
- *
- * The result should be [-1, 150, 160, 170, -1, -1, 180, 190]
- */
-function sortByHeight(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function sortByHeight(arr) {
+	// Создаем отфильтрованный массив из оригинального где не будет значений -1
+	let sortedArr = arr.filter((num) => num !== -1)
+	// Сортируем отфильтрованный массив по возрастанию
+	.sort((a, b) => a - b);
+	// Возвращаем отсортированный исходный массив С помощью метода мар и условием: если элемент равен -1 оставляем его, если нет 
+	// добавляем удаленный элемент из начала отсортированного массива методом shift
+	return arr.map((num) => (num === -1 ? -1 : sortedArr.shift()));
 }
 
 module.exports = {
